@@ -8,6 +8,7 @@ import injectSheet from 'react-jss'
 const styles = {
   base: {
     background: 'rgb(4, 6, 12)',
+    height: '100%',
   },
 }
 

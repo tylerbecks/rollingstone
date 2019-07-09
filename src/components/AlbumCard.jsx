@@ -1,7 +1,14 @@
 import React, { PureComponent } from 'react'
 import { Button, Card, Image, Label, Icon, Popup } from 'semantic-ui-react'
+import injectSheet from 'react-jss'
 
-export default class IndexPage extends PureComponent {
+const styles = {
+  image: {
+    height: 290,
+  },
+}
+
+class AlbumCard extends PureComponent {
   state = {
     bookMarkHref: '',
     isPopupOpen: false,
@@ -32,8 +39,7 @@ export default class IndexPage extends PureComponent {
       <Card id={this.props.id} raised>
         <Image
           src={this.props.imageHref}
-          href={this.props.href}
-          target="_blank"
+          className={this.props.classes.image}
         />
         <Card.Content>
           <Card.Header content={this.props.header} />
@@ -60,13 +66,10 @@ export default class IndexPage extends PureComponent {
             inverted
             position="top center"
           />
-          {/* <Button
-            floated="right"
-            icon="spotify"
-            onClick={this.props.onClickActionButton}
-          /> */}
         </Card.Content>
       </Card>
     )
   }
 }
+
+export default injectSheet(styles)(AlbumCard)

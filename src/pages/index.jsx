@@ -1,55 +1,69 @@
 import React, { PureComponent } from 'react'
 import { graphql } from 'gatsby'
-import { Container } from 'semantic-ui-react'
+import { Container, Icon } from 'semantic-ui-react'
 import Layout from '../components/layout'
 import Header from '../components/Header'
 import AlbumsContainer from '../components/AlbumsContainer'
+import injectSheet from 'react-jss'
 
 const ALL_FILTER_FIELDS = ['album', 'band', 'recordLabel', 'rank', 'year']
 
-export default class IndexPage extends PureComponent {
+const styles = {
+  arrowContainer: {
+    marginBottom: '1.45rem',
+  },
+  arrowLeft: {
+    marginRight: '1.45rem',
+  },
+}
+
+class IndexPage extends PureComponent {
   state = {
-    bookmarkedId: undefined,
+    bookmarkedId: null,
     filter: '',
+    currentAlbumIndex: null,
   }
 
   componentDidMount() {
     const bookmarkedId = this.getBookmarkedId()
-    this.setState({ bookmarkedId })
+    this.setState({
+      bookmarkedId,
+      currentAlbumIndex: bookmarkedId ? 500 - bookmarkedId : 0,
+    })
 
     window.onhashchange = this.handleHashChange
-
-    setTimeout(() => {
-      if (bookmarkedId) {
-        this.scrollToElement(bookmarkedId)
-      }
-    }, 2000)
   }
 
   handleHashChange = () => {
     const bookmarkedId = this.getBookmarkedId()
-    this.setState({ bookmarkedId })
+
+    this.setState({
+      bookmarkedId,
+      currentAlbumIndex: bookmarkedId ? 500 - bookmarkedId : 0,
+    })
+  }
+
+  incrementAlbum = () => {
+    this.setState(({ currentAlbumIndex }) => ({
+      currentAlbumIndex: currentAlbumIndex + 1,
+    }))
+  }
+
+  decrementAlbum = () => {
+    this.setState(({ currentAlbumIndex }) => ({
+      currentAlbumIndex: currentAlbumIndex - 1,
+    }))
   }
 
   getBookmarkedId() {
     // Only reference window in componentDidMount
     // https://www.gatsbyjs.org/docs/debugging-html-builds/#how-to-check-if-code-classlanguage-textwindowcode-is-defined
     const { hash } = window.location
-    return hash.slice(1)
-  }
-
-  scrollToElement(id) {
-    const element = document.getElementById(id)
-
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center',
-    })
+    return Number(hash.slice(1))
   }
 
   handleChangeFilter = filter => {
-    this.setState({ filter })
+    this.setState({ filter, currentAlbumIndex: 0 })
   }
 
   getFilteredAlbums = () => {
@@ -83,9 +97,33 @@ export default class IndexPage extends PureComponent {
           filter={this.state.filter}
         />
         <Container>
+          <Container
+            textAlign="center"
+            className={this.props.classes.arrowContainer}
+          >
+            <Icon
+              inverted
+              disabled={this.state.currentAlbumIndex === 0}
+              name="angle left"
+              size="big"
+              onClick={this.decrementAlbum}
+              className={this.props.classes.arrowLeft}
+            />
+            <Icon
+              inverted
+              disabled={this.state.currentAlbumIndex === 500 - 1}
+              name="angle right"
+              size="big"
+              onClick={this.incrementAlbum}
+            />
+          </Container>
+
           <AlbumsContainer
             albums={this.getFilteredAlbums()}
             bookmarkedId={this.state.bookmarkedId}
+            currentAlbumIndex={this.state.currentAlbumIndex}
+            decrementAlbum={this.decrementAlbum}
+            incrementAlbum={this.incrementAlbum}
           />
         </Container>
       </Layout>
@@ -117,3 +155,5 @@ export const query = graphql`
     }
   }
 `
+
+export default injectSheet(styles)(IndexPage)
