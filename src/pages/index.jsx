@@ -11,7 +11,6 @@ export default class IndexPage extends PureComponent {
   state = {
     bookmarkedId: undefined,
     filter: '',
-    filterFields: [],
   }
 
   componentDidMount() {
@@ -53,21 +52,12 @@ export default class IndexPage extends PureComponent {
     this.setState({ filter })
   }
 
-  handleChangeFilterFields = filterFields => {
-    this.setState({ filterFields })
-  }
-
   getFilteredAlbums = () => {
     const { edges } = this.props.data.allAlbumsJson
     if (this.state.filter === '') return edges
 
-    const filterFields =
-      this.state.filterFields.length === 0
-        ? ALL_FILTER_FIELDS
-        : this.state.filterFields
-
     return edges.filter(({ node }) => {
-      for (const field of filterFields) {
+      for (const field of ALL_FILTER_FIELDS) {
         if (this.matchesFilter(node[field])) {
           return true
         }
@@ -91,8 +81,6 @@ export default class IndexPage extends PureComponent {
           siteTitle={this.props.data.site.siteMetadata.title}
           onChangeFilter={this.handleChangeFilter}
           filter={this.state.filter}
-          filterFields={this.state.filterFields}
-          onChangeFilterFields={this.handleChangeFilterFields}
         />
         <Container>
           <AlbumsContainer

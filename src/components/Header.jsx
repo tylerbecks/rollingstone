@@ -1,6 +1,5 @@
 import React from 'react'
 import FilterInput from './FilterInput'
-import FilterFieldCheckboxes from './FilterFieldCheckboxes'
 import injectSheet from 'react-jss'
 
 const styles = {
@@ -19,21 +18,10 @@ const styles = {
   },
 }
 
-const Header = ({
-  classes,
-  siteTitle,
-  onChangeFilter,
-  filter,
-  filterFields,
-  onChangeFilterFields,
-}) => (
+const Header = ({ classes, siteTitle, onChangeFilter, filter }) => (
   <div className={classes.base}>
     <h2 className={classes.header}>{siteTitle}</h2>
     <FilterInput onChange={onChangeFilter} value={filter} />
-    <FilterFieldCheckboxes
-      onChange={onChangeFilterFields}
-      values={filterFields}
-    />
   </div>
 )
 
