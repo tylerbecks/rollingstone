@@ -1,21 +1,15 @@
 import React, { PureComponent } from 'react'
 import { graphql } from 'gatsby'
-import { Button, Container, Icon } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
+import ArrowButtons from '../components/ArrowButtons'
 import Layout from '../components/layout'
 import Header from '../components/Header'
 import AlbumsContainer from '../components/AlbumsContainer'
-import injectSheet from 'react-jss'
 
 const ALL_FILTER_FIELDS = ['album', 'band', 'recordLabel', 'rank', 'year']
 const ALBUMS_COUNT = 500
 
-const styles = {
-  arrowContainer: {
-    marginBottom: '1.4rem',
-  },
-}
-
-class IndexPage extends PureComponent {
+export default class IndexPage extends PureComponent {
   state = {
     bookmarkedId: null,
     filter: '',
@@ -97,30 +91,14 @@ class IndexPage extends PureComponent {
           filter={this.state.filter}
         />
         <Container>
-          <Container
-            textAlign="center"
-            className={this.props.classes.arrowContainer}
-          >
-            <Button.Group>
-              <Button
-                onClick={this.decrementAlbum}
-                circular
-                icon="chevron left"
-                disabled={this.state.currentAlbumIndex === 0}
-                inverted
-              />
-              <Button
-                circular
-                disabled={
-                  this.state.currentAlbumIndex === filteredAlbums.length - 1
-                }
-                icon="chevron right"
-                inverted
-                onClick={this.incrementAlbum}
-              />
-            </Button.Group>
-          </Container>
-
+          <ArrowButtons
+            onDecrement={this.decrementAlbum}
+            onIncrement={this.incrementAlbum}
+            decrementDisabled={this.state.currentAlbumIndex === 0}
+            incrementDisabled={
+              this.state.currentAlbumIndex === filteredAlbums.length - 1
+            }
+          />
           <AlbumsContainer
             albums={filteredAlbums}
             bookmarkedId={this.state.bookmarkedId}
@@ -156,5 +134,3 @@ export const query = graphql`
     }
   }
 `
-
-export default injectSheet(styles)(IndexPage)
