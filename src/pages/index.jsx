@@ -7,6 +7,7 @@ import AlbumsContainer from '../components/AlbumsContainer'
 import injectSheet from 'react-jss'
 
 const ALL_FILTER_FIELDS = ['album', 'band', 'recordLabel', 'rank', 'year']
+const ALBUMS_COUNT = 500
 
 const styles = {
   arrowContainer: {
@@ -28,7 +29,7 @@ class IndexPage extends PureComponent {
     const bookmarkedId = this.getBookmarkedId()
     this.setState({
       bookmarkedId,
-      currentAlbumIndex: bookmarkedId ? 500 - bookmarkedId : 0,
+      currentAlbumIndex: bookmarkedId ? ALBUMS_COUNT - bookmarkedId : 0,
     })
 
     window.onhashchange = this.handleHashChange
@@ -39,7 +40,7 @@ class IndexPage extends PureComponent {
 
     this.setState({
       bookmarkedId,
-      currentAlbumIndex: bookmarkedId ? 500 - bookmarkedId : 0,
+      currentAlbumIndex: bookmarkedId ? ALBUMS_COUNT - bookmarkedId : 0,
     })
   }
 
@@ -89,6 +90,8 @@ class IndexPage extends PureComponent {
   }
 
   render() {
+    const filteredAlbums = this.getFilteredAlbums()
+
     return (
       <Layout>
         <Header
@@ -111,7 +114,9 @@ class IndexPage extends PureComponent {
             />
             <Icon
               inverted
-              disabled={this.state.currentAlbumIndex === 500 - 1}
+              disabled={
+                this.state.currentAlbumIndex === filteredAlbums.count - 1
+              }
               name="angle right"
               size="big"
               onClick={this.incrementAlbum}
@@ -119,7 +124,7 @@ class IndexPage extends PureComponent {
           </Container>
 
           <AlbumsContainer
-            albums={this.getFilteredAlbums()}
+            albums={filteredAlbums}
             bookmarkedId={this.state.bookmarkedId}
             currentAlbumIndex={this.state.currentAlbumIndex}
             decrementAlbum={this.decrementAlbum}
