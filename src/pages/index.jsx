@@ -127,8 +127,6 @@ class IndexPage extends PureComponent {
             albums={filteredAlbums}
             bookmarkedId={this.state.bookmarkedId}
             currentAlbumIndex={this.state.currentAlbumIndex}
-            decrementAlbum={this.decrementAlbum}
-            incrementAlbum={this.incrementAlbum}
           />
         </Container>
       </Layout>
