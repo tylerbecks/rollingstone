@@ -10,15 +10,7 @@ const styles = {
 
 class AlbumCard extends PureComponent {
   state = {
-    bookMarkHref: '',
     isPopupOpen: false,
-  }
-
-  componentDidMount() {
-    // only access window in componentDidMount to ensure this code is running in the browser.  Gatsby build fails on the server side if window is referenced outside here.
-    // https://www.gatsbyjs.org/docs/debugging-html-builds/#how-to-check-if-code-classlanguage-textwindowcode-is-defined
-    const bookMarkHref = `${window.location.origin}/#${this.props.id}`
-    this.setState({ bookMarkHref })
   }
 
   showPopup = () => {
@@ -32,6 +24,10 @@ class AlbumCard extends PureComponent {
   handleClickCopyButton = () => {
     this.props.onClickActionButton()
     this.showPopup()
+  }
+
+  handleBookmark = () => {
+    this.props.onBookmark(this.props.id)
   }
 
   render() {
@@ -54,7 +50,7 @@ class AlbumCard extends PureComponent {
             as="a"
             content={<Icon name="bookmark" />}
             color={this.props.bookmarked ? 'green' : undefined}
-            href={this.state.bookMarkHref}
+            onClick={this.handleBookmark}
             ribbon
           />
           <Popup

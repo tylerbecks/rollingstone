@@ -3,7 +3,12 @@ import copy from 'copy-to-clipboard'
 import { Card } from 'semantic-ui-react'
 import AlbumCard from './AlbumCard'
 
-const AlbumsContainer = ({ albums, bookmarkedId, currentAlbumIndex }) => {
+const AlbumsContainer = ({
+  albums,
+  bookmarkedId,
+  currentAlbumIndex,
+  onBookmark,
+}) => {
   const albumNode = albums[currentAlbumIndex]
 
   if (!albumNode) return null
@@ -22,13 +27,13 @@ const AlbumsContainer = ({ albums, bookmarkedId, currentAlbumIndex }) => {
   return (
     <Card.Group centered>
       <AlbumCard
+        onBookmark={onBookmark}
         bookmarked={bookmarkedId === rank}
         description={description}
         header={rank}
         href={getSpotifyHref(band, album)}
         id={rank}
         imageHref={imageHref}
-        key={id}
         meta={`${year}, ${recordLabel}`}
         onClickActionButton={() => handleClickSpotifyButton(band, album)}
         subHeader={

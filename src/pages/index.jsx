@@ -22,17 +22,6 @@ export default class IndexPage extends PureComponent {
       bookmarkedId,
       currentAlbumIndex: bookmarkedId ? ALBUMS_COUNT - bookmarkedId : 0,
     })
-
-    window.onhashchange = this.handleHashChange
-  }
-
-  handleHashChange = () => {
-    const bookmarkedId = this.getBookmarkedId()
-
-    this.setState({
-      bookmarkedId,
-      currentAlbumIndex: bookmarkedId ? ALBUMS_COUNT - bookmarkedId : 0,
-    })
   }
 
   incrementAlbum = () => {
@@ -80,6 +69,11 @@ export default class IndexPage extends PureComponent {
     return lowerCaseStr.match(this.state.filter.toLowerCase())
   }
 
+  handleBookmark = albumId => {
+    window.location.hash = `#${albumId}`
+    this.setState({ bookmarkedId: albumId })
+  }
+
   render() {
     const filteredAlbums = this.getFilteredAlbums()
 
@@ -103,6 +97,7 @@ export default class IndexPage extends PureComponent {
             albums={filteredAlbums}
             bookmarkedId={this.state.bookmarkedId}
             currentAlbumIndex={this.state.currentAlbumIndex}
+            onBookmark={this.handleBookmark}
           />
         </Container>
       </Layout>
