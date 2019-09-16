@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { graphql } from 'gatsby'
-import { Container, Icon } from 'semantic-ui-react'
+import { Button, Container, Icon } from 'semantic-ui-react'
 import Layout from '../components/layout'
 import Header from '../components/Header'
 import AlbumsContainer from '../components/AlbumsContainer'
@@ -11,10 +11,7 @@ const ALBUMS_COUNT = 500
 
 const styles = {
   arrowContainer: {
-    marginBottom: '1.45rem',
-  },
-  arrowLeft: {
-    marginRight: '1.45rem',
+    marginBottom: '1.4rem',
   },
 }
 
@@ -104,23 +101,24 @@ class IndexPage extends PureComponent {
             textAlign="center"
             className={this.props.classes.arrowContainer}
           >
-            <Icon
-              inverted
-              disabled={this.state.currentAlbumIndex === 0}
-              name="angle left"
-              size="big"
-              onClick={this.decrementAlbum}
-              className={this.props.classes.arrowLeft}
-            />
-            <Icon
-              inverted
-              disabled={
-                this.state.currentAlbumIndex === filteredAlbums.length - 1
-              }
-              name="angle right"
-              size="big"
-              onClick={this.incrementAlbum}
-            />
+            <Button.Group>
+              <Button
+                onClick={this.decrementAlbum}
+                circular
+                icon="chevron left"
+                disabled={this.state.currentAlbumIndex === 0}
+                inverted
+              />
+              <Button
+                circular
+                disabled={
+                  this.state.currentAlbumIndex === filteredAlbums.length - 1
+                }
+                icon="chevron right"
+                inverted
+                onClick={this.incrementAlbum}
+              />
+            </Button.Group>
           </Container>
 
           <AlbumsContainer
