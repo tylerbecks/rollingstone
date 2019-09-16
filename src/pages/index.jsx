@@ -115,7 +115,7 @@ class IndexPage extends PureComponent {
             <Icon
               inverted
               disabled={
-                this.state.currentAlbumIndex === filteredAlbums.count - 1
+                this.state.currentAlbumIndex === filteredAlbums.length - 1
               }
               name="angle right"
               size="big"
