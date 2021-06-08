@@ -6,24 +6,24 @@
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
     "encodeurl": "^1.0.2",
-    "gatsby": "^2.0.19",
-    "gatsby-image": "^2.0.15",
-    "gatsby-plugin-google-analytics": "^2.0.7",
-    "gatsby-plugin-jss": "^2.0.5",
-    "gatsby-plugin-manifest": "^2.0.5",
-    "gatsby-plugin-offline": "^2.0.11",
-    "gatsby-plugin-react-helmet": "^3.0.0",
-    "gatsby-plugin-sharp": "^2.0.7",
-    "gatsby-source-filesystem": "^2.0.8",
-    "gatsby-transformer-json": "^2.1.5",
-    "gatsby-transformer-sharp": "^2.1.4",
+    "gatsby": "^3.7.0",
+    "gatsby-image": "^3.7.0",
+    "gatsby-plugin-google-analytics": "^3.7.0",
+    "gatsby-plugin-jss": "^3.7.0",
+    "gatsby-plugin-manifest": "^3.7.0",
+    "gatsby-plugin-offline": "^4.7.0",
+    "gatsby-plugin-react-helmet": "^4.7.0",
+    "gatsby-plugin-sharp": "^3.7.0",
+    "gatsby-source-filesystem": "^3.7.0",
+    "gatsby-transformer-json": "^3.7.0",
+    "gatsby-transformer-sharp": "^3.7.0",
     "normalize.css": "^8.0.1",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
-    "react-helmet": "^5.2.0",
-    "react-jss": "^8.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-jss": "^10.6.0",
     "react-swipe": "^6.0.4",
-    "semantic-ui-react": "^0.83.0",
+    "semantic-ui-react": "^2.0.3",
     "swipe-js-iso": "^2.1.5"
   },
   "keywords": [
@@ -38,7 +38,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "prettier": "^1.14.2"
+    "prettier": "^2.3.1"
   },
   "repository": {
     "type": "git",
