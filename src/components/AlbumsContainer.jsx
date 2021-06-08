@@ -17,7 +17,6 @@ const AlbumsContainer = ({
     album,
     band,
     description,
-    id,
     imageHref,
     rank,
     recordLabel,
@@ -49,11 +48,8 @@ const AlbumsContainer = ({
 const getSpotifyHref = (band, album) =>
   `https://open.spotify.com/search/results/artist:${band} album:${album}`
 
-const getSpotifySearchStr = (band, album) => `artist:"${band}" album:"${album}"`
-
 const handleClickSpotifyButton = (band, album) => {
-  const spotifySearchStr = getSpotifySearchStr(band, album)
-  copy(spotifySearchStr)
+  copy(`${band} ${album}`)
 }
 
 export default AlbumsContainer
